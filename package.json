@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/erinkshaw/twitter-js#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "morgan": "^1.8.2",
+    "volleyball": "^1.4.1"
   }
 }
