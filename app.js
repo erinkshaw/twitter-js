@@ -1,30 +1,23 @@
 const express = require( 'express' );
 const app = express();
 const morgan = require('morgan');
-//const volleyball = require('volleyball');
+const nunjucks = require('nunjucks');
 
 app.listen(3000);
 
-// app.use('/', function(req, res, next) {
-//   console.log(req.method, req.originalUrl, res.statusCode);
-//   next();
-// })
+app.set('view engine', 'html'); // have res.render work with html files
+app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
+nunjucks.configure('views', { noCache: true }); // point nunjucks to the proper directory for templates
 
-// morgan(function(tokens, req, res) {
-//   return [tokens.method(req, res),
-//           tokens.url(req, res),
-//           tokens.status(req, res)
-//          ].join(' ');
-// });
+app.use(morgan('combined'));
 
-app.use(morgan('combined')); 
- 
 
 app.use('/special/', function(req, res, next) {
   console.log("you reached the special area.");
   next();
-}); 
+});
 
 app.get('/', function(req, res) {
-  res.send('server listening \n');
-}); 
+  const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+  res.render( 'index', {title: 'Hall of Fame',people: people} );
+});
