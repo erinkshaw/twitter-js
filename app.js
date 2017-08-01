@@ -12,7 +12,7 @@ nunjucks.configure('views', { noCache: true }); // point nunjucks to the proper 
 app.use(morgan('combined'));
 
 
-app.use('/special/', function(req, res, next) {
+app.use('/special/', functio   n(req, res, next) {
   console.log("you reached the special area.");
   next();
 });
