@@ -2,6 +2,7 @@ const express = require( 'express' );
 const app = express();
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
 
 app.listen(3000);
 
@@ -12,12 +13,11 @@ nunjucks.configure('views', { noCache: true }); // point nunjucks to the proper 
 app.use(morgan('combined'));
 
 
-app.use('/special/', functio   n(req, res, next) {
+app.use('/special/', function(req, res, next) {
   console.log("you reached the special area.");
   next();
 });
 
-app.get('/', function(req, res) {
-  const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-  res.render( 'index', {title: 'Hall of Fame',people: people} );
-});
+app.use('/', routes);
+
+app.use(express.static('public'));
